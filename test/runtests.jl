@@ -15,6 +15,8 @@ using Base.Test
             @objective m Min x
             solve(m)
             @test getvalue(x) ≈ -1
+            @test getobjectivevalue(m) ≈ -1
+            @test getobjbound(m) ≈ -1
         end
 
         @testset "two variables" begin
@@ -27,6 +29,8 @@ using Base.Test
             solve(m)
             @test getvalue(x) ≈ -0.5
             @test getvalue(y) ≈ 0.1
+            @test getobjectivevalue(m) ≈ -0.4
+            @test getobjbound(m) ≈ -0.4
         end
     end
 
@@ -41,8 +45,10 @@ using Base.Test
             @NLconstraint m (x - -0.5)^2 + (y - -0.2)^2 <= z
             @objective m Min z
             solve(m)
-            @test getvalue(x) ≈ -0.5 atol=1e-4
-            @test getvalue(y) ≈ 0.1 atol=1e-4
+            @test getvalue(x) ≈ -0.5 rtol=1e-4
+            @test getvalue(y) ≈ 0.1 rtol=1e-4
+            @test getobjectivevalue(m) ≈ 0.09 rtol=1e-3
+            @test getobjbound(m) ≈ 0.09 rtol=1e-3
         end
 
         @testset "nonconvex constraint" begin
@@ -54,7 +60,18 @@ using Base.Test
             solve(m)
             @test getvalue(x) ≈ 1/√2
             @test getvalue(y) ≈ 1/√2
+            @test getobjectivevalue(m) ≈ getobjbound(m) rtol=1e-5
         end
+    end
+
+    @testset "optimality tolerance" begin
+        m = Model(solver=CouenneNLSolver(["tol=1e-1"]))
+        @variable m -2 <= x <= 2
+        @variable m -2 <= y <= 2
+        @NLconstraint m x^2 + y^2 == 1
+        @NLobjective m Min (x - 0.1)^2 + (y - 0.1)^2
+        solve(m)
+        @test 0 < getobjgap(m) <= 1e-1
     end
 end
 

@@ -3,3 +3,4 @@ AmplNLWriter
 MathProgBase 0.5 0.8
 BinDeps
 Lazy
+Suppressor
