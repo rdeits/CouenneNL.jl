@@ -49,13 +49,16 @@ function install_binaries(file_base, file_ext)
     function test_step()
         run(`$(joinpath(prefix, "bin", binary_name)) --version`)
     end
+
+    executable = Compat.Sys.iswindows() ? "couenne.exe" : "couenne"
+
     (@build_steps begin
         FileRule(joinpath(prefix, "bin", binary_name),
             (@build_steps begin
                 FileDownloader(url, joinpath(basedir, "downloads", filename))
                 FileUnpacker(joinpath(basedir, "downloads", filename),
                              joinpath(basedir, "downloads", file_base),
-                             "couenne")
+                             executable)
                 CreateDirectory(joinpath(prefix, "bin"))
                 install_step
                 test_step
