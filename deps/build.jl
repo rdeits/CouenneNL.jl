@@ -31,9 +31,9 @@ function install_binaries(file_base, file_ext)
 
     @static if Compat.Sys.iswindows()
         install_step = () -> begin
-            for dir in readdir(dirname(binary_path))
-                cp(joinpath(dirname(binary_path), dir),
-                   joinpath(prefix, dir);
+            for file in readdir(binary_path)
+                cp(joinpath(binary_path, file),
+                   joinpath(prefix, "bin", file);
                    remove_destination=true)
             end
         end
