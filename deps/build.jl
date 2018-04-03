@@ -4,7 +4,7 @@ using Compat
 const basedir = dirname(@__FILE__)
 const prefix = joinpath(basedir, "usr")
 const base_url = "https://ampl.com/dl/open/couenne"
-const binary_name = "couenne"
+const binary_name = Compat.Sys.iswindows() ? "couenne.exe" : "couenne"
 
 const file_base = if Compat.Sys.iswindows()
     if Sys.ARCH == :x86_64
@@ -50,7 +50,6 @@ function install_binaries(file_base, file_ext)
         run(`$(joinpath(prefix, "bin", binary_name)) --version`)
     end
 
-    executable = Compat.Sys.iswindows() ? "couenne.exe" : "couenne"
 
     (@build_steps begin
         FileRule(joinpath(prefix, "bin", binary_name),
@@ -58,7 +57,7 @@ function install_binaries(file_base, file_ext)
                 FileDownloader(url, joinpath(basedir, "downloads", filename))
                 FileUnpacker(joinpath(basedir, "downloads", filename),
                              joinpath(basedir, "downloads", file_base),
-                             executable)
+                             binary_name)
                 CreateDirectory(joinpath(prefix, "bin"))
                 install_step
                 test_step
