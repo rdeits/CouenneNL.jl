@@ -3,7 +3,7 @@ using Compat
 
 const basedir = dirname(@__FILE__)
 const prefix = joinpath(basedir, "usr")
-const base_url = "https://ampl.com/dl/open/couenne/"
+const base_url = "https://ampl.com/dl/open/couenne"
 const binary_name = "couenne"
 
 const file_base = if Compat.Sys.iswindows()
