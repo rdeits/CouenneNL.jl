@@ -14,7 +14,7 @@ This package is a very thin wrapper on top of https://github.com/JuliaOpt/AmplNL
 # Installation
 
 ```
-julia> Pkg.clone("https://github.com/rdeits/CounneNL.jl")
+julia> Pkg.clone("https://github.com/rdeits/CouenneNL.jl")
 
 julia> Pkg.build("CouenneNL")
 ```
