@@ -8,7 +8,7 @@ using Lazy: @forward
 using AmplNLWriter
 using AmplNLWriter: AmplNLMathProgModel, AmplNLNonlinearModel, AmplNLLinearQuadraticModel
 using MathProgBase
-importall MathProgBase.SolverInterface
+using MathProgBase.SolverInterface
 
 
 const depsjl = joinpath(dirname(dirname(@__FILE__)), "deps", "deps.jl")
@@ -35,69 +35,69 @@ struct CouenneNLLinearQuadraticModel <: AbstractLinearQuadraticModel
     model::AmplNLLinearQuadraticModel
 end
 
-LinearQuadraticModel(s::CouenneNLSolver) = CouenneNLLinearQuadraticModel(LinearQuadraticModel(s.solver))
+SolverInterface.LinearQuadraticModel(s::CouenneNLSolver) = CouenneNLLinearQuadraticModel(LinearQuadraticModel(s.solver))
 
 struct CouenneNLNonlinearModel <: AbstractNonlinearModel
     model::AmplNLNonlinearModel
 end
 
-NonlinearModel(s::CouenneNLSolver) = CouenneNLNonlinearModel(NonlinearModel(s.solver))
+SolverInterface.NonlinearModel(s::CouenneNLSolver) = CouenneNLNonlinearModel(NonlinearModel(s.solver))
 
-@forward CouenneNLSolver.solver getsolvername
-@forward CouenneNLNonlinearModel.model loadproblem!
-@forward CouenneNLLinearQuadraticModel.model loadproblem!
-@forward CouenneNLMathProgModel.model load_A!
-@forward CouenneNLMathProgModel.model loadcommon!
+@forward CouenneNLSolver.solver AmplNLWriter.getsolvername
+@forward CouenneNLNonlinearModel.model SolverInterface.loadproblem!
+@forward CouenneNLLinearQuadraticModel.model SolverInterface.loadproblem!
+@forward CouenneNLMathProgModel.model AmplNLWriter.load_A!
+@forward CouenneNLMathProgModel.model AmplNLWriter.loadcommon!
 
-@forward CouenneNLMathProgModel.model getvartype
-@forward CouenneNLMathProgModel.model setvartype!
-@forward CouenneNLMathProgModel.model getsense
-@forward CouenneNLMathProgModel.model setsense!
-@forward CouenneNLMathProgModel.model setwarmstart!
-@forward CouenneNLMathProgModel.model optimize!
-@forward CouenneNLMathProgModel.model status
-@forward CouenneNLMathProgModel.model getsolution
-@forward CouenneNLMathProgModel.model getobjval
-@forward CouenneNLMathProgModel.model numvar
-@forward CouenneNLMathProgModel.model numconstr
-@forward CouenneNLMathProgModel.model getsolvetime
-@forward CouenneNLMathProgModel.model get_solve_result
-@forward CouenneNLMathProgModel.model get_solve_result_num
-@forward CouenneNLMathProgModel.model get_solve_message
-@forward CouenneNLMathProgModel.model get_solve_exitcode
+@forward CouenneNLMathProgModel.model SolverInterface.getvartype
+@forward CouenneNLMathProgModel.model SolverInterface.setvartype!
+@forward CouenneNLMathProgModel.model SolverInterface.getsense
+@forward CouenneNLMathProgModel.model SolverInterface.setsense!
+@forward CouenneNLMathProgModel.model SolverInterface.setwarmstart!
+@forward CouenneNLMathProgModel.model SolverInterface.optimize!
+@forward CouenneNLMathProgModel.model SolverInterface.status
+@forward CouenneNLMathProgModel.model SolverInterface.getsolution
+@forward CouenneNLMathProgModel.model SolverInterface.getobjval
+@forward CouenneNLMathProgModel.model SolverInterface.numvar
+@forward CouenneNLMathProgModel.model SolverInterface.numconstr
+@forward CouenneNLMathProgModel.model SolverInterface.getsolvetime
+@forward CouenneNLMathProgModel.model AmplNLWriter.get_solve_result
+@forward CouenneNLMathProgModel.model AmplNLWriter.get_solve_result_num
+@forward CouenneNLMathProgModel.model AmplNLWriter.get_solve_message
+@forward CouenneNLMathProgModel.model AmplNLWriter.get_solve_exitcode
 
-@forward CouenneNLLinearQuadraticModel.model getvartype
-@forward CouenneNLLinearQuadraticModel.model setvartype!
-@forward CouenneNLLinearQuadraticModel.model getsense
-@forward CouenneNLLinearQuadraticModel.model setsense!
-@forward CouenneNLLinearQuadraticModel.model setwarmstart!
-@forward CouenneNLLinearQuadraticModel.model optimize!
-@forward CouenneNLLinearQuadraticModel.model status
-@forward CouenneNLLinearQuadraticModel.model getsolution
-@forward CouenneNLLinearQuadraticModel.model getobjval
-@forward CouenneNLLinearQuadraticModel.model numvar
-@forward CouenneNLLinearQuadraticModel.model numconstr
-@forward CouenneNLLinearQuadraticModel.model getsolvetime
-@forward CouenneNLLinearQuadraticModel.model get_solve_result
-@forward CouenneNLLinearQuadraticModel.model get_solve_result_num
-@forward CouenneNLLinearQuadraticModel.model get_solve_message
-@forward CouenneNLLinearQuadraticModel.model get_solve_exitcode
+@forward CouenneNLLinearQuadraticModel.model SolverInterface.getvartype
+@forward CouenneNLLinearQuadraticModel.model SolverInterface.setvartype!
+@forward CouenneNLLinearQuadraticModel.model SolverInterface.getsense
+@forward CouenneNLLinearQuadraticModel.model SolverInterface.setsense!
+@forward CouenneNLLinearQuadraticModel.model SolverInterface.setwarmstart!
+@forward CouenneNLLinearQuadraticModel.model SolverInterface.optimize!
+@forward CouenneNLLinearQuadraticModel.model SolverInterface.status
+@forward CouenneNLLinearQuadraticModel.model SolverInterface.getsolution
+@forward CouenneNLLinearQuadraticModel.model SolverInterface.getobjval
+@forward CouenneNLLinearQuadraticModel.model SolverInterface.numvar
+@forward CouenneNLLinearQuadraticModel.model SolverInterface.numconstr
+@forward CouenneNLLinearQuadraticModel.model SolverInterface.getsolvetime
+@forward CouenneNLLinearQuadraticModel.model AmplNLWriter.get_solve_result
+@forward CouenneNLLinearQuadraticModel.model AmplNLWriter.get_solve_result_num
+@forward CouenneNLLinearQuadraticModel.model AmplNLWriter.get_solve_message
+@forward CouenneNLLinearQuadraticModel.model AmplNLWriter.get_solve_exitcode
 
-@forward CouenneNLNonlinearModel.model getvartype
-@forward CouenneNLNonlinearModel.model setvartype!
-@forward CouenneNLNonlinearModel.model getsense
-@forward CouenneNLNonlinearModel.model setsense!
-@forward CouenneNLNonlinearModel.model setwarmstart!
-@forward CouenneNLNonlinearModel.model optimize!
-@forward CouenneNLNonlinearModel.model status
-@forward CouenneNLNonlinearModel.model getsolution
-@forward CouenneNLNonlinearModel.model getobjval
-@forward CouenneNLNonlinearModel.model numvar
-@forward CouenneNLNonlinearModel.model numconstr
-@forward CouenneNLNonlinearModel.model getsolvetime
-@forward CouenneNLNonlinearModel.model get_solve_result
-@forward CouenneNLNonlinearModel.model get_solve_result_num
-@forward CouenneNLNonlinearModel.model get_solve_message
-@forward CouenneNLNonlinearModel.model get_solve_exitcode
+@forward CouenneNLNonlinearModel.model SolverInterface.getvartype
+@forward CouenneNLNonlinearModel.model SolverInterface.setvartype!
+@forward CouenneNLNonlinearModel.model SolverInterface.getsense
+@forward CouenneNLNonlinearModel.model SolverInterface.setsense!
+@forward CouenneNLNonlinearModel.model SolverInterface.setwarmstart!
+@forward CouenneNLNonlinearModel.model SolverInterface.optimize!
+@forward CouenneNLNonlinearModel.model SolverInterface.status
+@forward CouenneNLNonlinearModel.model SolverInterface.getsolution
+@forward CouenneNLNonlinearModel.model SolverInterface.getobjval
+@forward CouenneNLNonlinearModel.model SolverInterface.numvar
+@forward CouenneNLNonlinearModel.model SolverInterface.numconstr
+@forward CouenneNLNonlinearModel.model SolverInterface.getsolvetime
+@forward CouenneNLNonlinearModel.model AmplNLWriter.get_solve_result
+@forward CouenneNLNonlinearModel.model AmplNLWriter.get_solve_result_num
+@forward CouenneNLNonlinearModel.model AmplNLWriter.get_solve_message
+@forward CouenneNLNonlinearModel.model AmplNLWriter.get_solve_exitcode
 
 end # module
