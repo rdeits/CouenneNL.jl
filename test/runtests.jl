@@ -1,7 +1,6 @@
-using Compat
 using CouenneNL
 using JuMP
-using Compat.Test
+using Test
 
 @testset "CouenneNL" begin
     @testset "installation" begin

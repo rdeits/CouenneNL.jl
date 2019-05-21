@@ -1,24 +1,23 @@
 using BinDeps
-using Compat
 
 const basedir = dirname(@__FILE__)
 const prefix = joinpath(basedir, "usr")
 const base_url = "https://ampl.com/dl/open/couenne"
-const binary_name = Compat.Sys.iswindows() ? "couenne.exe" : "couenne"
+const binary_name = Sys.iswindows() ? "couenne.exe" : "couenne"
 
-const file_base = if Compat.Sys.iswindows()
+const file_base = if Sys.iswindows()
     if Sys.ARCH == :x86_64
         "couenne-win64"
     else
         "couenne-win32"
     end
-elseif Compat.Sys.islinux()
+elseif Sys.islinux()
     if Sys.ARCH == :x86_64
         "couenne-linux64"
     else
         "couenne-linux32"
     end
-elseif Compat.Sys.isapple()
+elseif Sys.isapple()
     "couenne-osx"
 else
     error("Unsupported operating system. Only Windows, Linux, and OSX are supported.")
@@ -29,10 +28,10 @@ function install_binaries(file_base, file_ext)
     url = "$(base_url)/$(filename)"
     binary_path = joinpath(basedir, "downloads", file_base)
 
-    @static if Compat.Sys.iswindows()
+    @static if Sys.iswindows()
         install_step = () -> begin
             for file in readdir(binary_path)
-                Compat.cp(joinpath(binary_path, file),
+                cp(joinpath(binary_path, file),
                    joinpath(prefix, "bin", file);
                    force=true)
             end
