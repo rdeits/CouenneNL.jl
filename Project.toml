@@ -1,0 +1,21 @@
+name = "CouenneNL"
+uuid = "2f02e5f0-b48c-5506-b064-af4645e67f1e"
+
+[deps]
+AmplNLWriter = "7c4d4715-977e-5154-bfe0-e096adeac482"
+BinDeps = "9e28174c-4ba2-5203-b857-d8d62c4213ee"
+Lazy = "50d2b5c4-7a5e-59d5-8109-a42b560f39c0"
+MathProgBase = "fdba3010-5040-5b88-9595-932c9decdf73"
+
+[compat]
+AmplNLWriter = "~0.4.0"
+MathProgBase = "~0.5.0, ~0.6, ~0.7"
+JuMP = "0.18"
+julia = "≥ 0.7.0"
+
+[extras]
+Compat = "34da2185-b29b-5c13-b0c7-acf172513d20"
+JuMP = "4076af6c-e467-56ae-b986-b466b2749572"
+
+[targets]
+test = ["Compat", "JuMP"]

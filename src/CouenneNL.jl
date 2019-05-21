@@ -1,5 +1,3 @@
-__precompile__()
-
 module CouenneNL
 
 export CouenneNLSolver
@@ -13,7 +11,7 @@ using MathProgBase.SolverInterface
 
 const depsjl = joinpath(dirname(dirname(@__FILE__)), "deps", "deps.jl")
 if !isfile(depsjl)
-    error("CMakeWrapper not properly installed. Please run\nPkg.build(\"CouenneNL\")")
+    error("CouenneNL not properly installed. Please run\nPkg.build(\"CouenneNL\")")
 else
     include(depsjl)
 end
